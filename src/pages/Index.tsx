@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Camera, Search, BarChart3, Shield, Zap, Sparkles } from 'lucide-react';
+
+import { Camera, Search, Shield, Zap, Sparkles } from 'lucide-react';
 import { CameraScanner } from '@/components/CameraScanner';
 import { NutritionAnalysis } from '@/components/NutritionAnalysis';
 import { ScanHistory } from '@/components/ScanHistory';
@@ -99,104 +99,85 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-white border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 py-3">
-          <Tabs defaultValue="scanner" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="scanner" className="data-[state=active]:bg-scanner-primary data-[state=active]:text-white">
-                Scanner
-              </TabsTrigger>
-              <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            </TabsList>
+        <div className="max-w-4xl mx-auto px-4 py-3 mt-6 space-y-6">
+          {/* Hero Section */}
+          <div className="text-center mb-8">
+            <div className="w-20 h-20 mx-auto mb-4 bg-scanner-primary rounded-full flex items-center justify-center">
+              <Camera className="w-10 h-10 text-white" />
+            </div>
+            <h1 className="text-4xl font-bold mb-2">🥗 NutriScan AI</h1>
+            <p className="text-lg text-muted-foreground mb-1">Advanced nutrition analysis & allergen detection</p>
+            <p className="text-sm text-muted-foreground">
+              🚀 Advanced barcode scanning with instant AI nutrition analysis, allergen detection, and personalized health insights
+            </p>
+          </div>
+
+          {/* Main Scanner Card */}
+          <Card className="p-8 text-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-scanner-secondary rounded-full flex items-center justify-center">
+              <Camera className="w-8 h-8 text-scanner-primary" />
+            </div>
+            <h2 className="text-xl font-semibold mb-2">🥗 NutriScan AI</h2>
+            <p className="text-muted-foreground mb-6">Advanced nutrition analysis & allergen detection</p>
             
-            <TabsContent value="scanner" className="mt-6 space-y-6">
-              {/* Hero Section */}
-              <div className="text-center mb-8">
-                <div className="w-20 h-20 mx-auto mb-4 bg-scanner-primary rounded-full flex items-center justify-center">
-                  <Camera className="w-10 h-10 text-white" />
-                </div>
-                <h1 className="text-4xl font-bold mb-2">🥗 NutriScan AI</h1>
-                <p className="text-lg text-muted-foreground mb-1">Advanced nutrition analysis & allergen detection</p>
-                <p className="text-sm text-muted-foreground">
-                  🚀 Advanced barcode scanning with instant AI nutrition analysis, allergen detection, and personalized health insights
-                </p>
-              </div>
-
-              {/* Main Scanner Card */}
-              <Card className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-scanner-secondary rounded-full flex items-center justify-center">
-                  <Camera className="w-8 h-8 text-scanner-primary" />
-                </div>
-                <h2 className="text-xl font-semibold mb-2">🥗 NutriScan AI</h2>
-                <p className="text-muted-foreground mb-6">Advanced nutrition analysis & allergen detection</p>
-                
-                <Button 
-                  onClick={() => setShowCamera(true)}
-                  className="w-full bg-scanner-primary hover:bg-scanner-primary/90 text-white mb-4"
-                  size="lg"
-                >
-                  <Camera className="w-5 h-5 mr-2" />
-                  🚀 Start Camera Scanner
-                </Button>
-                
-                <p className="text-sm text-muted-foreground mb-4">Or</p>
-                
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="Enter barcode manually"
-                    value={barcode}
-                    onChange={(e) => setBarcode(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleManualSearch()}
-                  />
-                  <Button variant="outline" onClick={handleManualSearch}>
-                    <Search className="w-4 h-4" />
-                  </Button>
-                </div>
-              </Card>
-
-              {/* Features Grid */}
-              <div className="grid md:grid-cols-3 gap-4">
-                <Card className="p-6 text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-scanner-secondary rounded-full flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-scanner-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">🤖 AI Analysis</h3>
-                  <p className="text-sm text-muted-foreground">Advanced machine learning for precise nutrition insights</p>
-                </Card>
-                
-                <Card className="p-6 text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-scanner-secondary rounded-full flex items-center justify-center">
-                    <Zap className="w-6 h-6 text-scanner-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">⚡ Instant Results</h3>
-                  <p className="text-sm text-muted-foreground">Real-time scanning with comprehensive health recommendations</p>
-                </Card>
-                
-                <Card className="p-6 text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-scanner-secondary rounded-full flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-scanner-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">🛡️ Safety First</h3>
-                  <p className="text-sm text-muted-foreground">Automatic allergen detection with safety recommendations</p>
-                </Card>
-              </div>
-
-              {/* Scan History */}
-              <ScanHistory scans={scanHistory} />
-              
-              {/* Hackathon Badge */}
-              <div className="text-center py-4">
-                <p className="text-sm text-muted-foreground">🚀 Hackathon Edition - All Features Unlocked</p>
-              </div>
-            </TabsContent>
+            <Button 
+              onClick={() => setShowCamera(true)}
+              className="w-full bg-scanner-primary hover:bg-scanner-primary/90 text-white mb-4"
+              size="lg"
+            >
+              <Camera className="w-5 h-5 mr-2" />
+              🚀 Start Camera Scanner
+            </Button>
             
-            <TabsContent value="analytics" className="mt-6">
-              <div className="text-center py-12">
-                <BarChart3 className="w-16 h-16 mx-auto mb-4 text-scanner-primary" />
-                <h2 className="text-2xl font-bold mb-2">Analytics Dashboard</h2>
-                <p className="text-muted-foreground">Track your nutrition insights and scanning patterns</p>
+            <p className="text-sm text-muted-foreground mb-4">Or</p>
+            
+            <div className="flex gap-2">
+              <Input
+                placeholder="Enter barcode manually"
+                value={barcode}
+                onChange={(e) => setBarcode(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleManualSearch()}
+              />
+              <Button variant="outline" onClick={handleManualSearch}>
+                <Search className="w-4 h-4" />
+              </Button>
+            </div>
+          </Card>
+
+          {/* Features Grid */}
+          <div className="grid md:grid-cols-3 gap-4">
+            <Card className="p-6 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 bg-scanner-secondary rounded-full flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-scanner-primary" />
               </div>
-            </TabsContent>
-          </Tabs>
+              <h3 className="font-semibold mb-2">🤖 AI Analysis</h3>
+              <p className="text-sm text-muted-foreground">Advanced machine learning for precise nutrition insights</p>
+            </Card>
+            
+            <Card className="p-6 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 bg-scanner-secondary rounded-full flex items-center justify-center">
+                <Zap className="w-6 h-6 text-scanner-primary" />
+              </div>
+              <h3 className="font-semibold mb-2">⚡ Instant Results</h3>
+              <p className="text-sm text-muted-foreground">Real-time scanning with comprehensive health recommendations</p>
+            </Card>
+            
+            <Card className="p-6 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 bg-scanner-secondary rounded-full flex items-center justify-center">
+                <Shield className="w-6 h-6 text-scanner-primary" />
+              </div>
+              <h3 className="font-semibold mb-2">🛡️ Safety First</h3>
+              <p className="text-sm text-muted-foreground">Automatic allergen detection with safety recommendations</p>
+            </Card>
+          </div>
+
+          {/* Scan History */}
+          <ScanHistory scans={scanHistory} />
+          
+          {/* Hackathon Badge */}
+          <div className="text-center py-4">
+            <p className="text-sm text-muted-foreground">🚀 Hackathon Edition - All Features Unlocked</p>
+          </div>
         </div>
       </div>
 
