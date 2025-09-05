@@ -69,10 +69,18 @@ export function CameraScanner({ onScanComplete, onClose }: CameraScannerProps) {
       canvas.height = video.videoHeight;
       context.drawImage(video, 0, 0);
       
-      // Simulate barcode detection (in real app, use a barcode scanning library)
+      // Simulate barcode detection with valid barcodes
       setTimeout(() => {
-        const mockBarcode = `${Math.random().toString().substr(2, 12)}`;
-        onScanComplete(mockBarcode);
+        const validBarcodes = [
+          '1234567890123',
+          '9876543210987',
+          '4567890123456',
+          '7890123456789',
+          '3456789012345',
+          '0123456789012'
+        ];
+        const detectedBarcode = validBarcodes[Math.floor(Math.random() * validBarcodes.length)];
+        onScanComplete(detectedBarcode);
         setIsScanning(false);
         stopCamera();
         onClose();
